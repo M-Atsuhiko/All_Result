@@ -6,15 +6,14 @@ make_matrix <- function(data,dts,data_name){
 }
 
 make_All_graphs <- function(DELTA_T,
+                            dataList,
                             legends,
-                            type){
+                            typeName){
 
-  if(length(grep("k",type))) WITH_K <- TRUE
+  if(length(grep("k",typeName))) WITH_K <- TRUE
   else WITH_K <- FALSE
-  if(length(grep("ca",type))) WITH_Ca <- TRUE
+  if(length(grep("ca",typeName))) WITH_Ca <- TRUE
   else WITH_Ca <- FALSE
-
-  typeName <- chartr(" ","_",type)
   
   source("plot_datas.R")
   source("barplot_datas.R")
@@ -24,15 +23,6 @@ make_All_graphs <- function(DELTA_T,
       cex=1.4,
       mex=1.2,
       oma=c(0,0,0,0))
-
-  Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
-  Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
-
-                                        #DELTA_T <- seq(5,30,by=5)
-  ## legends <- c("Gausian",
-  ##              "dim-Gaus",
-  ##              "Liner",
-  ##              "dim-Liner")
 
   N_data_kind <- length(legends)
 
@@ -105,28 +95,15 @@ make_All_graphs <- function(DELTA_T,
      length(dataNames) != length(rowNames) ||
      length(dataNames) != length(colNames)) stop("Error: Data legends lenghes are not same!")
 
-  load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
-  Gausian_Data <- ALL_DATA_FRAME
-#  load(paste(Gausian_prefix,typeName,"_Rerative_Gaus75_5_All_Data_FRAME.xdr",sep=""))
-#  reduced_Gausian_Data <- ALL_DATA_FRAME
-  load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
-  Liner_Data <- ALL_DATA_FRAME
-  load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
-  reduced_Liner_Data <- ALL_DATA_FRAME
-
-  print(make_matrix(reduced_Liner_Data,30,"F"))
-
   mapply(function(data_name,mainName,rowname,colname){
   
     cat(mainName,"\n")
     
     Filename <- paste(OutputDir,typeName,"_",data_name,".eps",sep="")
 
-    data_list <- list(Gausian_mat <- make_matrix(Gausian_Data,DELTA_T,data_name),
- #                     reduced_Gausian_mat <- make_matrix(reduced_Gausian_Data,DELTA_T,data_name),
-                      Liner_mat <- make_matrix(Liner_Data,DELTA_T,data_name),
-                      reduced_Liner_mat <- make_matrix(reduced_Liner_Data,DELTA_T,data_name)
-                      )
+    data_list <- lapply(dataList,function(dataframe){
+      return(make_matrix(dataframe,DELTA_T,data_name))})
+    
     if(length(grep("amount",mainName))){
       data_list <- lapply(data_list,function(data_mat){
         return(data_mat*10^9)
@@ -149,14 +126,31 @@ make_All_graphs <- function(DELTA_T,
 }
 
 legends <- c("Gausian",
-#             "dim-Gaus",
+             "dim-Gaus",
              "Liner",
              "dim-Liner")
 
-type <- "k"
+type <- "ca"
+typeName <- chartr(" ","_",type)
+
+Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
+Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
+
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
+Gausian_Data <- ALL_DATA_FRAME
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus75_5_All_Data_FRAME.xdr",sep=""))
+reduced_Gausian_Data <- ALL_DATA_FRAME
+load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
+Liner_Data <- ALL_DATA_FRAME
+load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
+reduced_Liner_Data <- ALL_DATA_FRAME
+
+dataList <- list(Gausian_Data,
+                 reduced_Gausian_Data,
+                 Liner_Data,
+                 reduced_Liner_Data)
 
 make_All_graphs(seq(5,30,by=5),
+                dataList,
                 legends,
-                type)
-
-  
+                typeName)
