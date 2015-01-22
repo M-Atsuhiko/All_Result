@@ -1,257 +1,162 @@
-source("plot_datas.R")
-source("barplot_datas.R")
+make_matrix <- function(data,dts,data_name){
+  mat <- sapply(dts,function(dt){
+    return(subset(data,DT == dt)[[data_name]])
+  })
+  return(mat)
+}
 
-par(lwd=3,
-    cex=1.4,
-    mex=1.2,
-    oma=c(0,0,0,0))
+make_All_graphs <- function(DELTA_T,
+                            legends,
+                            type){
 
-Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
-Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
+  if(length(grep("k",type))) WITH_K <- TRUE
+  else WITH_K <- FALSE
+  if(length(grep("ca",type))) WITH_Ca <- TRUE
+  else WITH_Ca <- FALSE
 
-DELTA_T <- seq(5,30,by=5)
-rowname <- expression(paste("Optimized ",delta,"t"))
-Colors <- c("red","orange","cyan","darkolivegreen1")
-legends <- c("Gausian","Liner","Tsuishi","reduced Gausian")
-SolidType <- rep("solid",4)
+  typeName <- chartr(" ","_",type)
+  
+  source("plot_datas.R")
+  source("barplot_datas.R")
+  library(colorspace)
 
-OutputDir <- "./Graphs/"
+  par(lwd=3,
+      cex=1.4,
+      mex=1.2,
+      oma=c(0,0,0,0))
 
-##### F graph #####
-Filename <- paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_Fs.xdr",sep="")
-load(Filename)
-Gausian_Fs <- Fs
-Filename <- paste(Gausian_prefix,"ca_Rerative_Gaus75_5_Fs.xdr",sep="")
-load(Filename)
-reduced_Gausian_Fs <- Fs
-Filename <- paste(Tsuishi_prefix,"ca_Rerative_liner_75_0_Fs.xdr",sep="")
-load(Filename)
-Tsuishi_liner_Fs <- Fs
-Filename <- paste(Tsuishi_prefix,"ca_Tsuishi_alfa05__Fs.xdr",sep="")
-load(Filename)
-Tsuishi_alfa_Fs <- Fs
+  Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
+  Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
 
-colname <- ""
-mainName <- "Function ratio"
-OutputFilename <- paste(OutputDir,"Fs.eps",sep="")
-plot_datas(list(Gausian_Fs,
-                Tsuishi_liner_Fs,
-                Tsuishi_alfa_Fs,
-                reduced_Gausian_Fs
-                ),
-           mainName,
-           rowname,
-           colname,
-           legends,
-           Colors,
-           SolidType,
-           DELTA_T,
-           TRUE,
-           OutputFilename)
+                                        #DELTA_T <- seq(5,30,by=5)
+  ## legends <- c("Gausian",
+  ##              "dim-Gaus",
+  ##              "Liner",
+  ##              "dim-Liner")
 
-##### TREE length #####
-TREE_length_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_TREE_lengths.xdr",sep="")
-load(TREE_length_filename)
-Gausian_TREE_lengths <- TREE_lengths
-TREE_length_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus75_5_TREE_lengths.xdr",sep="")
-load(TREE_length_filename)
-reduced_Gausian_TREE_lengths <- TREE_lengths
-TREE_length_filename <- paste(Tsuishi_prefix,"ca_Rerative_liner_75_0_TREE_lengths.xdr",sep="")
-load(TREE_length_filename)
-Tsuishi_liner_TREE_lengths <- TREE_lengths
-TREE_length_filename <- paste(Tsuishi_prefix,"ca_Tsuishi_alfa05__TREE_lengths.xdr",sep="")
-load(TREE_length_filename)
-Tsuishi_alfa_TREE_lengths <- TREE_lengths
+  N_data_kind <- length(legends)
 
-colname <- expression(paste("[",mu,"m]",sep=""))
-mainName <- "TREE length"
-OutputFilename <- paste(OutputDir,"TREE_length.eps",sep="")
-barplot_datas(list(Gausian_TREE_lengths,
-                   Tsuishi_liner_TREE_lengths,
-                   Tsuishi_alfa_TREE_lengths,
-                   reduced_Gausian_TREE_lengths
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
+  Colors <- rainbow_hcl(N_data_kind)
 
-##### TREE volume #####
-TREE_volume_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_TREE_volumes.xdr",sep="")
-load(TREE_volume_filename)
-Gausian_TREE_volumes <- TREE_volumes
-TREE_volume_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus75_5_TREE_volumes.xdr",sep="")
-load(TREE_volume_filename)
-reduced_Gausian_TREE_volumes <- TREE_volumes
-TREE_volumeilename <- paste(Tsuishi_prefix,"ca_Rerative_liner_75_0_TREE_volumes.xdr",sep="")
-load(TREE_volumeilename)
-Tsuishi_liner_TREE_volumes <- TREE_volumes
-TREE_volumeilename <- paste(Tsuishi_prefix,"ca_Tsuishi_alfa05__TREE_volumes.xdr",sep="")
-load(TREE_volumeilename)
-Tsuishi_alfa_TREE_volumes <- TREE_volumes
+  SolidType <- rep("solid",N_data_kind)
 
-colname <- expression(paste("[",mu,m^3,"]",sep=""))
-mainName <- expression(paste("TREE volume (",log[10],")",sep=""))
-OutputFilename <- paste(OutputDir,"TREE_volume_4.eps",sep="")
-barplot_datas(list(log10(Gausian_TREE_volumes),
-                   log10(Tsuishi_liner_TREE_volumes),
-                   log10(Tsuishi_alfa_TREE_volumes),
-                   log10(reduced_Gausian_TREE_volumes)
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
+  dt_row<- expression(paste("Optimized ",Delta,"t"))
 
-##### Upper Ca conductance amount #####
-Ca_amountilename <- paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_Ca_amount.xdr",sep="")
-load(Ca_amountilename)
-Gausian_Ca_amounts <- Ca_amounts
-TREE_length_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus75_5_Ca_amount.xdr",sep="")
-load(TREE_length_filename)
-reduced_Gausian_Ca_amounts <- Ca_amounts
-Ca_amountilename <- paste(Tsuishi_prefix,"ca_Rerative_liner_75_0_Ca_amount.xdr",sep="")
-load(Ca_amountilename)
-Tsuishi_liner_Ca_amounts <- Ca_amounts
-Ca_amountilename <- paste(Tsuishi_prefix,"ca_Tsuishi_alfa05__Ca_amount.xdr",sep="")
-load(Ca_amountilename)
-Tsuishi_alfa_Ca_amounts <- Ca_amounts
+  vol_col <- expression(paste("[",mu,m^3,"]"))
+  length_col <- expression(paste("[",mu,"m]"))
+  N_col <- "[number]"
+  cond_amount_col <- expression(paste("[pS/c",m^2,"]",sep=""))
 
-colname <- expression(paste("[pS/c",m^2,"]",sep=""))
-mainName <- expression(paste("Upper Dendrite CaT conductance amount",sep=""))
-OutputFilename <- paste(OutputDir,"Upper_Dend_Ca_amount_4.eps",sep="")
-barplot_datas(list(Gausian_Ca_amounts[["Upper_Ca_amounts"]]*10^9,
-                   Tsuishi_liner_Ca_amounts[["Upper_Ca_amounts"]]*10^9,
-                   Tsuishi_alfa_Ca_amounts[["Upper_Ca_amounts"]]*10^9,
-                   reduced_Gausian_Ca_amounts[["Upper_Ca_amounts"]]*10^9
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
-##### Lower Ca conductance amount #####
-mainName <- expression(paste("Lower Dendrite CaT conductance amount",sep=""))
-OutputFilename <- paste(OutputDir,"Lower_Dend_ca_amount_4.eps",sep="")
-barplot_datas(list(Gausian_Ca_amounts[["Lower_Ca_amounts"]]*10^9,
-                   Tsuishi_liner_Ca_amounts[["Lower_Ca_amounts"]]*10^9,
-                   Tsuishi_alfa_Ca_amounts[["Lower_Ca_amounts"]]*10^9,
-                   reduced_Gausian_Ca_amounts[["Lower_Ca_amounts"]]*10^9
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
+  OutputDir <- "./Graphs/"
 
-##### Upper Ca conductance ratio #####
-Ca_ratio_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_Ca_ratio.xdr",sep="")
-load(Ca_ratio_filename)
-Gausian_Ca_ratios <- Ca_Ratios
-TREE_length_filename <- paste(Gausian_prefix,"ca_Rerative_Gaus75_5_Ca_ratio.xdr",sep="")
-load(TREE_length_filename)
-reduced_Gausian_Ca_ratios <- Ca_Ratios
-Ca_ratio_filename <- paste(Tsuishi_prefix,"ca_Rerative_liner_75_0_Ca_ratio.xdr",sep="")
-load(Ca_ratio_filename)
-Tsuishi_liner_Ca_ratios <- Ca_Ratios
-Ca_ratio_filename <- paste(Tsuishi_prefix,"ca_Tsuishi_alfa05__Ca_ratio.xdr",sep="")
-load(Ca_ratio_filename)
-Tsuishi_alfa_Ca_ratios <- Ca_Ratios
+  dataNames <- c("F",
+                 "TREE_volume",
+                 "Upper_Dend_volume","Lower_Dend_volume",
+                 "TREE_length",
+                 "Upper_Dend_length","Lower_Dend_length",
+                 "N_Upper_Syn","N_Lower_Syn",
+                 "Upper_Diam","Lower_Diam")
 
-colname <- "%"
-mainName <- expression(paste("Upper Dendrite CaT conductance ratio",sep=""))
-OutputFilename <- paste(OutputDir,"Upper_Dend_Ca_ratio_4.eps",sep="")
-barplot_datas(list(Gausian_Ca_ratios[["Upper_Ca_ratios"]]*10^2,
-                   Tsuishi_liner_Ca_ratios[["Upper_Ca_ratios"]]*10^2,
-                   Tsuishi_alfa_Ca_ratios[["Upper_Ca_ratios"]]*10^2,
-                   reduced_Gausian_Ca_ratios[["Upper_Ca_ratios"]]*10^2
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
-##### Lower Ca conductance ratio #####
-mainName <- expression(paste("Lower Dendrite CaT conductance ratio",sep=""))
-OutputFilename <- paste(OutputDir,"Lower_Dend_Ca_ratio_4.eps",sep="")
-barplot_datas(list(Gausian_Ca_ratios[["Lower_Ca_ratios"]]*10^2,
-                   Tsuishi_liner_Ca_ratios[["Lower_Ca_ratios"]]*10^2,
-                   Tsuishi_alfa_Ca_ratios[["Lower_Ca_ratios"]]*10^2,
-                   reduced_Gausian_Ca_ratios[["Lower_Ca_ratios"]]*10^2
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
+  mainNames <-c("F",
+                "Tree volume",
+                "Upper Dendrite volume","Lower Dendrite volume",
+                "Tree length",
+                "Upper Dendrite length","Lower Dendrite length",
+                "Number of Upper Synapse","Number of Lower Synapse",
+                "Upper Dendrite diameter","Lower Dendrite diameter")
+  
 
-##### TREE Ca conductance_amount #####
-mainName <- expression(paste("Dendritic Ca Conductance amount",sep=""))
-OutputFilename <- paste(OutputDir,"TREE_ca_amount_4.eps",sep="")
-All_Gausian_Ca_amount <- Gausian_Ca_amounts[["Lower_Ca_amounts"]] + Gausian_Ca_amounts[["Upper_Ca_amounts"]]
-All_Tsuishi_liner_Ca_amount <- Tsuishi_liner_Ca_amounts[["Lower_Ca_amounts"]] + Tsuishi_liner_Ca_amounts[["Upper_Ca_amounts"]]
-All_Tsuishi_alfa_Ca_amount <- Tsuishi_alfa_Ca_amounts[["Lower_Ca_amounts"]] + Tsuishi_alfa_Ca_amounts[["Upper_Ca_amounts"]]
-All_reduced_Gausian_Ca_amount <- reduced_Gausian_Ca_amounts[["Lower_Ca_amounts"]] + reduced_Gausian_Ca_amounts[["Upper_Ca_amounts"]]
-colname <- expression(paste("[pS/c",m^2,"]",sep=""))
-barplot_datas(list(All_Gausian_Ca_amount*10^9,
-                   All_Tsuishi_liner_Ca_amount*10^9,
-                   All_Tsuishi_alfa_Ca_amount*10^9,
-                   All_reduced_Gausian_Ca_amount*10^9
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
-##### TREE Ca conductance_ratio #####
-mainName <- "Dendritic Ca Conductance ratio"
-OutputFilename <- paste(OutputDir,"TREE_ca_ratio_4.eps",sep="")
-All_Gausian_Ca_ratio <- All_Gausian_Ca_amount/(Gausian_Ca_amounts[["Lower_Ca_maxs"]] + Gausian_Ca_amounts[["Upper_Ca_maxs"]])
-All_Tsuishi_liner_Ca_ratio <- All_Tsuishi_liner_Ca_amount/(Tsuishi_liner_Ca_amounts[["Lower_Ca_maxs"]] + Tsuishi_liner_Ca_amounts[["Upper_Ca_maxs"]])
-All_Tsuishi_alfa_Ca_ratio <- All_Tsuishi_alfa_Ca_amount/(Tsuishi_alfa_Ca_amounts[["Lower_Ca_maxs"]] + Tsuishi_alfa_Ca_amounts[["Upper_Ca_maxs"]])
-All_reduced_Gausian_Ca_ratio <- All_reduced_Gausian_Ca_amount/(reduced_Gausian_Ca_amounts[["Lower_Ca_maxs"]] + reduced_Gausian_Ca_amounts[["Upper_Ca_maxs"]])
-colname <- "%"
-barplot_datas(list(All_Gausian_Ca_ratio*10^2,
-                    All_Tsuishi_liner_Ca_ratio*10^2,
-                   All_Tsuishi_alfa_Ca_ratio*10^2,
-                    All_reduced_Gausian_Ca_ratio*10^2
-                   ),
-              mainName,
-              rowname,
-              colname,
-              legends,
-              Colors,
-              SolidType,
-              DELTA_T,
-              FALSE,
-              OutputFilename)
+  colNames <- c("",
+                vol_col,
+                vol_col,vol_col,
+                length_col,
+                length_col,length_col,
+                N_col,N_col,
+                length_col,length_col)
+
+  if(WITH_K){
+    dataNames <- c(dataNames,
+                   "TREE_K_amount","Upper_K_amount","Lower_K_amount",
+                   "TREE_K_ratio","Upper_K_ratio","Lower_K_ratio")
+    mainNames <- c(mainNames,
+                   "Tree K amount","Upper Dendrite K amount","Lower Dendrite K amount",
+                   "Tree K ratio","Upper Dendrite K ratio","Lower Dendrite K ratio")
+    colNames <- c(colNames,
+                  cond_amount_col,cond_amount_col,cond_amount_col,
+                "","","")
+  }
+
+  if(WITH_Ca){
+    dataNames <- c(dataNames,
+                   "TREE_Ca_amount","Upper_Ca_amount","Lower_Ca_amount",
+                   "TREE_Ca_ratio","Upper_Ca_ratio","Lower_Ca_ratio")
+    mainNames <- c(mainNames,
+                   "Tree Ca amount","Upper Dendrite Ca amount","Lower Dendrite Ca amount",
+                   "Tree Ca ratio","Upper Dendrite Ca ratio","Lower Dendrite Ca ratio")
+    colNames <- c(colNames,
+                  cond_amount_col,cond_amount_col,cond_amount_col,
+                "","","")
+  }
+
+  rowNames <- rep(dt_row,length(colNames))
+
+  if(length(dataNames) != length(mainNames) ||
+     length(dataNames) != length(rowNames) ||
+     length(dataNames) != length(rowNames) ||
+     length(dataNames) != length(colNames)) stop("Error: Data legends lenghes are not same!")
+
+  load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
+  Gausian_Data <- ALL_DATA_FRAME
+#  load(paste(Gausian_prefix,typeName,"_Rerative_Gaus75_5_All_Data_FRAME.xdr",sep=""))
+#  reduced_Gausian_Data <- ALL_DATA_FRAME
+  load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
+  Liner_Data <- ALL_DATA_FRAME
+  load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
+  reduced_Liner_Data <- ALL_DATA_FRAME
+
+  print(make_matrix(reduced_Liner_Data,30,"F"))
+
+  mapply(function(data_name,mainName,rowname,colname){
+  
+    cat(mainName,"\n")
+    
+    Filename <- paste(OutputDir,typeName,"_",data_name,".eps",sep="")
+
+    data_list <- list(Gausian_mat <- make_matrix(Gausian_Data,DELTA_T,data_name),
+ #                     reduced_Gausian_mat <- make_matrix(reduced_Gausian_Data,DELTA_T,data_name),
+                      Liner_mat <- make_matrix(Liner_Data,DELTA_T,data_name),
+                      reduced_Liner_mat <- make_matrix(reduced_Liner_Data,DELTA_T,data_name)
+                      )
+    if(length(grep("amount",mainName))){
+      data_list <- lapply(data_list,function(data_mat){
+        return(data_mat*10^9)
+      })
+    }
+
+    plot_datas(data_list,
+               mainName,
+               rowname,
+               colname,
+               legends,
+               Colors,
+               SolidType,
+               DELTA_T,
+               FALSE,
+               Filename
+               )
+    cat("\n")
+  },dataNames,mainNames,rowNames,colNames)
+}
+
+legends <- c("Gausian",
+#             "dim-Gaus",
+             "Liner",
+             "dim-Liner")
+
+type <- "k"
+
+make_All_graphs(seq(5,30,by=5),
+                legends,
+                type)
+
+  
