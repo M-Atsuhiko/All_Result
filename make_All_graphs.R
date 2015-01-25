@@ -127,10 +127,9 @@ make_All_graphs <- function(DELTA_T,
 
 legends <- c("Gausian",
              "dim-Gaus",
-             "Liner",
-             "dim-Liner")
-
-type <- "ca"
+             "Liner")#,
+#             "dim-Liner")
+type <- "k"
 typeName <- chartr(" ","_",type)
 
 Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
@@ -138,17 +137,17 @@ Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
 
 load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
 Gausian_Data <- ALL_DATA_FRAME
-load(paste(Gausian_prefix,typeName,"_Rerative_Gaus75_5_All_Data_FRAME.xdr",sep=""))
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
 reduced_Gausian_Data <- ALL_DATA_FRAME
 load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
 Liner_Data <- ALL_DATA_FRAME
-load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
-reduced_Liner_Data <- ALL_DATA_FRAME
+#load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
+#reduced_Liner_Data <- ALL_DATA_FRAME
 
 dataList <- list(Gausian_Data,
                  reduced_Gausian_Data,
-                 Liner_Data,
-                 reduced_Liner_Data)
+                 Liner_Data)
+#                 reduced_Liner_Data)
 
 make_All_graphs(seq(5,30,by=5),
                 dataList,
