@@ -23,6 +23,7 @@ make_All_graphs <- function(DELTA_T,
       cex=1.4,
       mex=1.2,
       oma=c(0,0,0,0))
+#      mfcol=c(3,1))
 
   N_data_kind <- length(legends)
 
@@ -54,7 +55,6 @@ make_All_graphs <- function(DELTA_T,
                 "Upper Dendrite length","Lower Dendrite length",
                 "Number of Upper Synapse","Number of Lower Synapse",
                 "Upper Dendrite diameter","Lower Dendrite diameter")
-  
 
   colNames <- c("",
                 vol_col,
@@ -103,7 +103,6 @@ make_All_graphs <- function(DELTA_T,
 
     data_list <- lapply(dataList,function(dataframe){
       return(make_matrix(dataframe,DELTA_T,data_name))})
-    
     if(length(grep("amount",mainName))){
       data_list <- lapply(data_list,function(data_mat){
         return(data_mat*10^9)
@@ -119,34 +118,47 @@ make_All_graphs <- function(DELTA_T,
                SolidType,
                DELTA_T,
                FALSE,
-               Filename
+               TRUE
                )
+    dev.copy2eps(file=Filename)
+    cat("Output ->",Filename,"\n")
     cat("\n")
   },dataNames,mainNames,rowNames,colNames)
 }
 
-legends <- c("Gausian",
-             "dim-Gaus",
-             "Liner")#,
+#legends <- c("Gausian",
+#             "dim-Gaus",
+#             "Liner")#,
 #             "dim-Liner")
-type <- "k"
+legends <- c("alpha",
+             "Rerative")
+
+type <- "passive"
 typeName <- chartr(" ","_",type)
 
 Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
 Tsuishi_prefix <- "~/workspace/Tsuishi/Tsuishi_Result/"
 
-load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
-Gausian_Data <- ALL_DATA_FRAME
-load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
-reduced_Gausian_Data <- ALL_DATA_FRAME
-load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
-Liner_Data <- ALL_DATA_FRAME
+load(paste(Tsuishi_prefix,typeName,"_Tsuishi_alfa_05_75_0_All_Data_FRAME.xdr",sep=""))
+alfa_data<- ALL_DATA_FRAME
+load(paste(Gausian_prefix,typeName,"_Rerative_75_0_All_Data_FRAME.xdr",sep=""))
+rerative_data <- ALL_DATA_FRAME
+
+#load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
+#Gausian_Data <- ALL_DATA_FRAME
+#load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
+#reduced_Gausian_Data <- ALL_DATA_FRAME
+#load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
+#Liner_Data <- ALL_DATA_FRAME
 #load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
 #reduced_Liner_Data <- ALL_DATA_FRAME
 
-dataList <- list(Gausian_Data,
-                 reduced_Gausian_Data,
-                 Liner_Data)
+dataList <- list(alfa_data,
+                 rerative_data)
+
+#dataList <- list(Gausian_Data,
+#                 reduced_Gausian_Data,
+#                 Liner_Data)
 #                 reduced_Liner_Data)
 
 make_All_graphs(seq(5,30,by=5),
