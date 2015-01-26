@@ -52,11 +52,19 @@ plot_one_graph <- function(Datas,
   },Datas,Colors,sigma_margin)
 
   if(length(test_result) > 0){
-    apply(test_result,2,function(col){
-      if(col[2] == 0){
-        text(col,Max_data,label="*")
-      }
-    })
+    for(test_i in 1:length(test_result)){
+
+      test <- test_result[[test_i]]
+
+      apply(test,2,function(col){
+        if(col[2] == 0){
+          text(col,Max_data,
+               label="*",
+               cex=2,
+               col=test_i)
+        }
+      })
+    }
   }
 }
 
