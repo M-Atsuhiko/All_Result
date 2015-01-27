@@ -9,6 +9,7 @@ source("plot_one_graph.R")
 source("barplot_datas.R")
 source("t_test.R")
 source("make_legends.R")
+source("graph_setting.R")
 library(colorspace)
 
 Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
@@ -50,11 +51,6 @@ colNames <- c(expression(paste("Upper Stem diameter [",mu,"m]",sep="")),
               expression(paste("Lower Stem diameter [",mu,"m]",sep="")))
 
 rowNames <- rep(dt_row,length(colNames))
-
-par(lwd=3,
-    cex=1.4,
-    mex=1.2)
-
 
 mapply(function(data_name,mainName,rowname,colname){
   cat(mainName,"\n")
