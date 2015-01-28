@@ -42,7 +42,7 @@ N_data <- length(dataList)
 Colors <- color_fun(N_data)
 SolidType <- rep("solid",N_data)
 
-legends <- c("Torben et al",
+legends <- c("Torben et al.",
              "Rerative")
 
 
