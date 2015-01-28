@@ -8,6 +8,8 @@ make_matrix <- function(data,dts,data_name){
 source("plot_one_graph.R")
 source("barplot_datas.R")
 source("t_test.R")
+source("wilcox_test.R")
+source("f_test.R")
 source("make_legends.R")
 source("graph_setting.R")
 library(colorspace)
@@ -37,11 +39,12 @@ rerative_data <- ALL_DATA_FRAME
 dataList <- list(alfa_data,rerative_data)
 
 N_data <- length(dataList)
-Colors <- rainbow_hcl(N_data)
+Colors <- color_fun(N_data)
 SolidType <- rep("solid",N_data)
 
 legends <- c("Torben et al",
              "Rerative")
+
 
 dataNames <- c("F",
                "TREE_length",
@@ -74,11 +77,28 @@ mapply(function(data_name,mainName,rowname,colname){
   }
 
   test_result <- rbind(DELTA_T,
-                      sapply(DELTA_T,function(dt){
-                        t_test(subset(alfa_data,DT == dt)[[data_name]],
-                               subset(rerative_data,DT == dt)[[data_name]],
-                               0.05)
-                      }))
+                       sapply(DELTA_T,function(dt){
+                         t_test(subset(alfa_data,DT == dt)[[data_name]],
+                                subset(rerative_data,DT == dt)[[data_name]],
+                                0.05)
+                       })
+                                             ## sapply(DELTA_T,function(dt){
+                      ##   f_test(subset(alfa_data,DT == dt)[[data_name]],
+                      ##          subset(rerative_data,DT == dt)[[data_name]],
+                      ##          0.05)
+                      ## sapply(DELTA_T,function(dt){
+                      ##   wilcox_test(subset(alfa_data,DT == dt)[[data_name]],
+                      ##          subset(rerative_data,DT == dt)[[data_name]],
+                      ##          0.05)
+                      ## }),
+                      ## sapply(DELTA_T,function(dt){
+                      ##   f_test(subset(alfa_data,DT == dt)[[data_name]],
+                      ##          subset(rerative_data,DT == dt)[[data_name]],
+                      ##          0.05)
+                      ## })
+                       )
+       
+  print(test_result)
   
   plot_one_graph(data_list,
                  mainName,
