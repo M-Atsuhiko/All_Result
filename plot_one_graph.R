@@ -59,7 +59,6 @@ plot_one_graph <- function(Datas,
 
   if(length(test_result) > 0){
     for(test_i in 1:length(test_result)){
-
       test <- test_result[[test_i]]
 
       apply(test,2,function(col){

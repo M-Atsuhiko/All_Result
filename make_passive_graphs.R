@@ -40,11 +40,13 @@ dataList <- list(alfa_data,rerative_data)
 
 N_data <- length(dataList)
 Colors <- color_fun(N_data)
-SolidType <- rep("solid",N_data)
 
 legends <- c("Torben et al.",
-             "Rerative")
+             "Rerative",
+             "t-test")
 
+LineType <- rep("solid",N_data)
+point_type <- c(rep("",N_data),rep("*",2))
 
 dataNames <- c("F",
                "TREE_length",
@@ -106,7 +108,7 @@ mapply(function(data_name,mainName,rowname,colname){
                  colname,
                  legends,
                  Colors,
-                 SolidType,
+                 LineType,
                  DELTA_T,
                  FALSE,
                  list(test_result)
@@ -118,6 +120,6 @@ mapply(function(data_name,mainName,rowname,colname){
 
 cat("the legend \n")
 Filename <- paste(OutputDir,prefix,"legend",".eps",sep="")
-make_legends(legends,Colors,SolidType)
+make_legends(legends,c(Colors,"black","red"),c(LineType,rep("blank",2)),point_type)
 dev.copy2eps(file=Filename)
 cat("Output ->",Filename,"\n")

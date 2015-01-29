@@ -1,4 +1,4 @@
-make_legends <- function(legends,colors,ltys){
+make_legends <- function(legends,colors,ltys,pchs){
   par(xpd=NA)
 
   plot(1,1,
@@ -15,5 +15,6 @@ make_legends <- function(legends,colors,ltys){
          legend=legends,
          col=colors,
          lty=ltys,
+         pch=pchs,
          cex=2)
 }
