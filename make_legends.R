@@ -10,7 +10,7 @@ make_legends <- function(legends,colors,ltys,pchs){
        bty="n",
        mar=c(0,0,0,0)
        )
-
+  
   legend(0.45,1.4,
          legend=legends,
          col=colors,

@@ -75,7 +75,7 @@ mapply(function(data_name,mainName,rowname,colname){
                  mainName,
                  rowname,
                  colname,
-                 legends,
+                 legensd,
                  Colors,
                  SolidType,
                  DELTA_T,

@@ -9,7 +9,7 @@ source("plot_one_graph.R")
 source("barplot_datas.R")
 source("t_test.R")
 source("wilcox_test.R")
-source("f_test.R")
+#source("f_test.R")
 source("make_legends.R")
 source("graph_setting.R")
 library(colorspace)
@@ -51,18 +51,22 @@ point_type <- c(rep("",N_data),rep("*",2))
 dataNames <- c("F",
                "TREE_length",
                "TREE_volume",
-               "Upper_Diam","Lower_Diam")
+               "Upper_Diam","Lower_Diam",
+               "N_Upper_Syn","N_Lower_Syn")
+
 
 mainNames <-c("F",
               "Neuron length",
               "Neuron volume",
-              "Upper Dendrite diameter","Lower Dendrite diameter")
+              "Upper Dendrite diameter","Lower Dendrite diameter",
+              "Number of Red Synapse","Number of Blue Synapse")
 
 colNames <- c("F",
               expression(paste("Neuron length [",mu,"m]",sep="")),
               expression(paste("Neuron volume [",mu,m^3,"]",sep="")),
               expression(paste("Upper Stem diameter [",mu,"m]",sep="")),
-              expression(paste("Lower Stem diameter [",mu,"m]",sep="")))
+              expression(paste("Lower Stem diameter [",mu,"m]",sep="")),
+              "Number of Red Synpase","Number of Blue Synpase")
 
 rowNames <- rep(dt_row,length(colNames))
 
