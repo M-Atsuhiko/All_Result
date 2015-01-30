@@ -19,6 +19,7 @@ make_legends <- function(legends,colors,ltys,pchs){
          cex=2)
 }
 
+## # 検定legend作成
 ## source("graph_setting.R")
 ## cat("the test legend \n")
 
@@ -29,5 +30,19 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## OutputDir <- "~/workspace/Syuron/Images_Result/"
 ## Filename <- paste(OutputDir,"test_legend.eps",sep="")
 ## make_legends(test_legends,c(rep("black",2),"green"),1,c("*","#","+"))
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")
+
+
+# synapse legend generator
+## source("graph_setting.R")
+## cat("the synapse legend \n")
+
+## test_legends <- c("Blue synapse",
+##                   "Red synapse")
+
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"synapse_legend.eps",sep="")
+## make_legends(test_legends,c("skyblue","violetred"),1,rep(21,2))
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")
