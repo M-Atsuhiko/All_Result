@@ -71,6 +71,8 @@ reduced_Liner_Data <- ALL_DATA_FRAME
 load(paste(Gausian_prefix,"passive_Rerative_75_0_All_Data_FRAME.xdr",sep=""))
 passive_Data <- ALL_DATA_FRAME
 
+doTest <- TRUE
+
 make_Conductance_graphs(Gausian_Data,reduced_Gausian_Data,
                         Liner_Data,reduced_Liner_Data,
                         passive_Data,
@@ -78,4 +80,5 @@ make_Conductance_graphs(Gausian_Data,reduced_Gausian_Data,
                         dt_row,
                         dataNames,
                         mainNames,
-                        colNames)
+                        colNames,
+                        doTest)

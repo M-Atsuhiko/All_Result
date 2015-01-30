@@ -4,7 +4,8 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                                     dt_row,
                                     dataNames,
                                     mainNames,
-                                    colNames){
+                                    colNames,
+                                    doTest){
   dataList <- list(Gausian_Data,reduced_Gausian_Data,
                    Liner_Data,reduced_Liner_Data,
                    passive_Data)
@@ -35,38 +36,46 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
       })
     }
 
-    Gausian_pass_test <- rbind(DELTA_T + 0.5,
+    if(doTest){
+      Gausian_pass_test <- rbind(DELTA_T + 0.5,
+                                 sapply(DELTA_T,function(dt){
+                                   t_test(subset(Gausian_Data,DT == dt)[[data_name]],
+                                          subset(passive_Data,DT == dt)[[data_name]],
+                                          "two.sided",
+                                          0.05)}))
+      Gaus_redced_test <- rbind(DELTA_T + 0.5,
+                                sapply(DELTA_T,function(dt){
+                                  t_test(subset(Gausian_Data,DT == dt)[[data_name]],
+                                         subset(reduced_Gausian_Data,DT == dt)[[data_name]],
+                                         "two.sided",
+                                         0.05)}))
+      
+      Liner_pass_test <- rbind(DELTA_T - 0.5,
                                sapply(DELTA_T,function(dt){
-                                 t_test(subset(Gausian_Data,DT == dt)[[data_name]],
+                                 t_test(subset(Liner_Data,DT == dt)[[data_name]],
                                         subset(passive_Data,DT == dt)[[data_name]],
                                         "two.sided",
                                         0.05)}))
-    Gaus_redced_test <- rbind(DELTA_T + 0.5,
+      Liner_reduced_test <- rbind(DELTA_T - 0.5,
                                   sapply(DELTA_T,function(dt){
-                                    t_test(subset(Gausian_Data,DT == dt)[[data_name]],
-                                           subset(reduced_Gausian_Data,DT == dt)[[data_name]],
+                                    t_test(subset(Liner_Data,DT == dt)[[data_name]],
+                                           subset(reduced_Liner_Data,DT == dt)[[data_name]],
                                            "two.sided",
                                            0.05)}))
-    
-    Liner_pass_test <- rbind(DELTA_T - 0.5,
+
+      Reduceds_test <- rbind(DELTA_T,
                              sapply(DELTA_T,function(dt){
-                               t_test(subset(Liner_Data,DT == dt)[[data_name]],
-                                      subset(passive_Data,DT == dt)[[data_name]],
+                               t_test(subset(reduced_Gausian_Data,DT == dt)[[data_name]],
+                                      subset(reduced_Liner_Data,DT == dt)[[data_name]],
                                       "two.sided",
                                       0.05)}))
-    Liner_reduced_test <- rbind(DELTA_T - 0.5,
-                                sapply(DELTA_T,function(dt){
-                                  t_test(subset(Liner_Data,DT == dt)[[data_name]],
-                                         subset(reduced_Liner_Data,DT == dt)[[data_name]],
-                                         "two.sided",
-                                         0.05)}))
-
-    Reduceds_test <- rbind(DELTA_T,
-                           sapply(DELTA_T,function(dt){
-                             t_test(subset(reduced_Gausian_Data,DT == dt)[[data_name]],
-                                    subset(reduced_Liner_Data,DT == dt)[[data_name]],
-                                    "two.sided",
-                                    0.05)}))
+    }else{
+      Gausian_pass_test <- c()
+      Gaus_redced_test <- c()
+      Liner_pass_test <- c()
+      Liner_reduced_test <- c()
+      Reduceds_test <- c()
+    }
 
     plot_one_graph(data_list,
                    mainName,

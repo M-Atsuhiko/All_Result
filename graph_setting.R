@@ -7,6 +7,5 @@ par(lwd=7, #線の太さ
 
 Error_bar_lwd <- 2.5
 color_fun <- rainbow
-
 points_cex <- 0.5
 

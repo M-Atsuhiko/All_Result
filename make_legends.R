@@ -31,3 +31,16 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## make_legends(test_legends,c(rep("black",2),"green"),1,c("*","#","+"))
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")
+
+## source("graph_setting.R")
+## cat("the test legend \n")
+
+## test_legends <- c("Upper Dendrite",
+##                   "Lower Dendrite",
+##                   "t-test")
+
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"passive_one_legend.eps",sep="")
+## make_legends(test_legends,c("red","blue","black"),c(rep("solid",2),"blank"),c("","","*"))
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")

@@ -29,7 +29,7 @@ OutputDir <- "./Graphs/"
 DELTA_T <- seq(5,30,by=5)
 
 typeName <- "passive"
-prefix <- "Tsuishi_Rerative_"
+prefix <- "passive_one_"
 
 load(paste(Tsuishi_prefix,typeName,"_Tsuishi_alfa_05_75_0_All_Data_FRAME.xdr",sep=""))
 alfa_data<- ALL_DATA_FRAME
