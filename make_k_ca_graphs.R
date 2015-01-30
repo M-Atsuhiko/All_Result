@@ -10,6 +10,7 @@ source("barplot_datas.R")
 source("t_test.R")
 source("graph_setting.R")
 source("make_legends.R")
+source("make_Conductance_graphs.R")
 library(colorspace)
 
 Gausian_prefix <- "~/workspace/Gausian/Gausian_Result/"
@@ -61,8 +62,8 @@ colNames <- c("F",
 
 load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
 Gausian_Data <- ALL_DATA_FRAME
-#load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
-#reduced_Gausian_Data <- ALL_DATA_FRAME
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
+reduced_Gausian_Data <- ALL_DATA_FRAME
 load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
 Liner_Data <- ALL_DATA_FRAME
 load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
