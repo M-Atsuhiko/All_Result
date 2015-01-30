@@ -18,3 +18,16 @@ make_legends <- function(legends,colors,ltys,pchs){
          pch=pchs,
          cex=2)
 }
+
+## source("graph_setting.R")
+## cat("the test legend \n")
+
+## test_legends <- c("t-test (G-P, L-P) ",
+##                   "t-test (G-Gr, L-Lr)  ",
+##                   "t-test (Gr-Lr) ")
+
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"test_legend.eps",sep="")
+## make_legends(test_legends,c(rep("black",2),"green"),1,c("*","#","+"))
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")

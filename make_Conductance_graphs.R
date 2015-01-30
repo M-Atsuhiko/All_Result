@@ -19,10 +19,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                "Gausian-reduced",
                "Liner",
                "Liner-reduced",
-               "passive",
-               "t-test (passive)",
-               "t-test (reduced)")
-
+               "Passive")
 
   rowNames <- rep(dt_row,length(colNames))
 
@@ -38,26 +35,26 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
       })
     }
 
-    Gausian_pass_test <- rbind(DELTA_T + 0.3,
+    Gausian_pass_test <- rbind(DELTA_T + 0.5,
                                sapply(DELTA_T,function(dt){
                                  t_test(subset(Gausian_Data,DT == dt)[[data_name]],
                                         subset(passive_Data,DT == dt)[[data_name]],
                                         "two.sided",
                                         0.05)}))
-    Gaus_redced_test <- rbind(DELTA_T + 0.7,
+    Gaus_redced_test <- rbind(DELTA_T + 0.5,
                                   sapply(DELTA_T,function(dt){
                                     t_test(subset(Gausian_Data,DT == dt)[[data_name]],
                                            subset(reduced_Gausian_Data,DT == dt)[[data_name]],
                                            "two.sided",
                                            0.05)}))
     
-    Liner_pass_test <- rbind(DELTA_T - 0.3,
+    Liner_pass_test <- rbind(DELTA_T - 0.5,
                              sapply(DELTA_T,function(dt){
                                t_test(subset(Liner_Data,DT == dt)[[data_name]],
                                       subset(passive_Data,DT == dt)[[data_name]],
                                       "two.sided",
                                       0.05)}))
-    Liner_reduced_test <- rbind(DELTA_T - 0.7,
+    Liner_reduced_test <- rbind(DELTA_T - 0.5,
                                 sapply(DELTA_T,function(dt){
                                   t_test(subset(Liner_Data,DT == dt)[[data_name]],
                                          subset(reduced_Liner_Data,DT == dt)[[data_name]],
@@ -93,7 +90,8 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
 
   cat("the legend \n")
   Filename <- paste(OutputDir,prefix,"legend",".eps",sep="")
-  make_legends(legends,c(Colors,"black","black"),c(LineType,rep("blank",2)),PointType)
+  make_legends(legends,Colors,LineType,PointType)
   dev.copy2eps(file=Filename)
   cat("Output ->",Filename,"\n")
+
 }

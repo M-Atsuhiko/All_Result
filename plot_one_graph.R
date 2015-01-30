@@ -77,12 +77,11 @@ plot_one_graph <- function(Datas,
   if(length(reduced_test_result) > 0){
     for(test_i in 1:length(reduced_test_result)){
       test <- reduced_test_result[[test_i]]
-
       apply(test,2,function(col){
         if(col[2] == 0){
-          points(col[1],Max_data,
-                 pch=3,
-                 cex=0.5,
+          text(col[1],(par()$usr[4] + par()$usr[3])/1.04,
+               label="#",
+                 cex=1,
                  col=Colors[test_i*2])
         }
       })
@@ -92,7 +91,7 @@ plot_one_graph <- function(Datas,
   if(length(Gaus_liner_test_result) > 0){
     apply(Gaus_liner_test_result,2,function(col){
       if(col[2] == 0){
-        text(col[1],(par()$usr[4] + par()$usr[3])/1.05,
+        text(col[1],(par()$usr[4] + par()$usr[3])/1.08,
              label="+",
              cex=1.3,
              col="green")
