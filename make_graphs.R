@@ -41,7 +41,7 @@ Colors <- rainbow_hcl(N_data)
 SolidType <- rep("solid",N_data)
 
 legends <- c("Torben et al",
-             "Rerative")
+             "Relative")
 
 dataNames <- c("Upper_Diam","Lower_Diam")
 

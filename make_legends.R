@@ -35,7 +35,6 @@ make_legends <- function(legends,colors,ltys,pchs){
 
 ## source("graph_setting.R")
 ## cat("the test legend \n")
-
 ## test_legends <- c("Upper Dendrite",
 ##                   "Lower Dendrite",
 ##                   "t-test")
@@ -43,7 +42,6 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## OutputDir <- "~/workspace/Syuron/Images_Result/"
 ## Filename <- paste(OutputDir,"passive_one_legend.eps",sep="")
 ## make_legends(test_legends,c("red","blue","black"),c(rep("solid",2),"blank"),c("","","*"))
-
 
 # synapse legend generator
 ## source("graph_setting.R")
@@ -58,3 +56,32 @@ make_legends <- function(legends,colors,ltys,pchs){
 
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")
+
+# 2simulation legend generator
+## source("graph_setting.R")
+## cat("the 2simulation legend \n")
+
+## test_legends <- c(expression(Blue %->% Red),
+##                   expression(Red %->% Blue),
+##                   expression(paste(Blue %->% Red," ",(-CaT))),
+##                   expression(paste(Red %->% Blue," ",(-CaT))))
+
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"ca_2simulation_legend.eps",sep="")
+## make_legends(test_legends,
+##              c("blue","red","blue","red"),
+##              c(rep("solid",2),rep("dashed",2)),rep("",4))
+
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")
+
+source("graph_setting.R")
+cat("the passive legend \n")
+test_legends <- c("Torben et al.",
+                  "Relative",
+                  "t-test")
+OutputDir <- "~/workspace/Syuron/Images_Result/"
+Filename <- paste(OutputDir,"Tsuishi_Rerative_legend.eps",sep="")
+make_legends(test_legends,c(rainbow(2),"black"),c(rep("solid",2),"blank"),c("","","*"))
+dev.copy2eps(file=Filename)
+cat("Output ->",Filename,"\n")

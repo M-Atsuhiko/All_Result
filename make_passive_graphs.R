@@ -42,7 +42,7 @@ N_data <- length(dataList)
 Colors <- color_fun(N_data)
 
 legends <- c("Torben et al.",
-             "Rerative",
+             "Relative",
              "t-test")
 
 LineType <- rep("solid",N_data)

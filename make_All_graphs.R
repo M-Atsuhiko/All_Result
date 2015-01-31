@@ -150,7 +150,7 @@ dataList <- list(alfa_data,
                 rerative_data)
 
 legends <- c("Torben et al",
-             "Rerative")
+             "Relative")
 
 ## load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
 ## Gausian_Data <- ALL_DATA_FRAME
