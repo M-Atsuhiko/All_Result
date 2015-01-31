@@ -43,17 +43,14 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## Filename <- paste(OutputDir,"passive_one_legend.eps",sep="")
 ## make_legends(test_legends,c("red","blue","black"),c(rep("solid",2),"blank"),c("","","*"))
 
-# synapse legend generator
+#synapse legend generator
 ## source("graph_setting.R")
 ## cat("the synapse legend \n")
-
 ## test_legends <- c("Blue synapse",
 ##                   "Red synapse")
-
 ## OutputDir <- "~/workspace/Syuron/Images_Result/"
 ## Filename <- paste(OutputDir,"synapse_legend.eps",sep="")
-## make_legends(test_legends,c("skyblue","violetred"),1,rep(21,2))
-
+## make_legends(test_legends,c("skyblue","violetred"),rep("blank",2),rep(16,2))
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")
 
@@ -75,13 +72,13 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")
 
-source("graph_setting.R")
-cat("the passive legend \n")
-test_legends <- c("Torben et al.",
-                  "Relative",
-                  "t-test")
-OutputDir <- "~/workspace/Syuron/Images_Result/"
-Filename <- paste(OutputDir,"Tsuishi_Rerative_legend.eps",sep="")
-make_legends(test_legends,c(rainbow(2),"black"),c(rep("solid",2),"blank"),c("","","*"))
-dev.copy2eps(file=Filename)
-cat("Output ->",Filename,"\n")
+## source("graph_setting.R")
+## cat("the passive legend \n")
+## test_legends <- c("Torben et al.",
+##                   "Relative",
+##                   "t-test")
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"Tsuishi_Rerative_legend.eps",sep="")
+## make_legends(test_legends,c(rainbow(2),"black"),c(rep("solid",2),"blank"),c("","","*"))
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")
