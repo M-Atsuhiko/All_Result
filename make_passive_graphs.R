@@ -52,21 +52,24 @@ dataNames <- c("F",
                "TREE_length",
                "TREE_volume",
                "Upper_Diam","Lower_Diam",
-               "N_Upper_Syn","N_Lower_Syn")
+               "N_Upper_Syn","N_Lower_Syn",
+               "N_Upper_bif","N_Lower_bif")
 
 
 mainNames <-c("F",
               "Neuron length",
               "Neuron volume",
               "Upper Dendrite diameter","Lower Dendrite diameter",
-              "Number of Red Synapse","Number of Blue Synapse")
+              "Number of Red Synapse","Number of Blue Synapse",
+              "Number of Upper Bifurcation","Number of Lower Bifurcation")
 
 colNames <- c("F",
               expression(paste("Neuron length [",mu,"m]",sep="")),
               expression(paste("Neuron volume [",mu,m^3,"]",sep="")),
               expression(paste("Upper Stem diameter [",mu,"m]",sep="")),
               expression(paste("Lower Stem diameter [",mu,"m]",sep="")),
-              "Number of Red Synpase","Number of Blue Synpase")
+              "Number of Red Synpase","Number of Blue Synpase",
+              "Number of Upper Bifurcation","Number of Lower Bifurcation")
 
 rowNames <- rep(dt_row,length(colNames))
 
@@ -82,10 +85,12 @@ mapply(function(data_name,mainName,rowname,colname){
     })
   }
 
+
   test_result <- rbind(DELTA_T,
                        sapply(DELTA_T,function(dt){
                          t_test(subset(alfa_data,DT == dt)[[data_name]],
                                 subset(rerative_data,DT == dt)[[data_name]],
+                                "two.sided",
                                 0.05)
                        })
                                              ## sapply(DELTA_T,function(dt){
@@ -103,9 +108,7 @@ mapply(function(data_name,mainName,rowname,colname){
                       ##          0.05)
                       ## })
                        )
-       
-  print(test_result)
-  
+
   plot_one_graph(data_list,
                  mainName,
                  rowname,
@@ -115,7 +118,9 @@ mapply(function(data_name,mainName,rowname,colname){
                  LineType,
                  DELTA_T,
                  FALSE,
-                 list(test_result)
+                 list(test_result),
+                 c(),
+                 c()
                  )
   dev.copy2eps(file=Filename)
   cat("Output ->",Filename,"\n")
