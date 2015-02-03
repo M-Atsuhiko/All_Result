@@ -30,7 +30,7 @@ rerative_data <- ALL_DATA_FRAME
 dataList <- list(rerative_data)
 
 N_data <- length(dataList)
-Colors <- color_fun(N_data)
+Colors <- "#00FFFFFF"
 
 legends <- c("Upper Dendrite","Lower Dendrite")
 
@@ -133,6 +133,8 @@ test_result <- rbind(DELTA_T,
                               "two.sided",
                               0.05)
                      }))
+
+star_black <- TRUE
   
 plot_one_graph(list(make_matrix(rerative_data,DELTA_T,"Upper_Diam"),
                     make_matrix(rerative_data,DELTA_T,"Lower_Diam")),
@@ -146,7 +148,8 @@ plot_one_graph(list(make_matrix(rerative_data,DELTA_T,"Upper_Diam"),
                  FALSE,
                  list(test_result),
                  c(),
-                 c()
+                 c(),
+               star_black
                )
 dev.copy2eps(file=Filename)
 cat("Output ->",Filename,"\n")
@@ -175,7 +178,8 @@ plot_one_graph(list(make_matrix(rerative_data,DELTA_T,"N_Upper_Syn"),
                FALSE,
                list(test_result),
                c(),
-               c()
+               c(),
+               star_black
                )
 dev.copy2eps(file=Filename)
 cat("Output ->",Filename,"\n")

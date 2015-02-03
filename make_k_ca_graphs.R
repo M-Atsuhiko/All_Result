@@ -36,7 +36,8 @@ dataNames <- c("F",
                "TREE_K_ratio","Upper_K_ratio","Lower_K_ratio",
                "TREE_Ca_ratio","Upper_Ca_ratio","Lower_Ca_ratio",
                "Upper_Diam","Lower_Diam",
-               "N_Upper_Syn","N_Lower_Syn")
+               "N_Upper_Syn","N_Lower_Syn",
+               "N_Upper_bif","N_Lower_bif")
 
 mainNames <-c("F",
               "Neuron length",
@@ -44,7 +45,8 @@ mainNames <-c("F",
               "Neuron Ka ratio","Upper Dendrite Ka ratio","Lower Dendrite Ka ratio",
               "Neuron CaT ratio","Upper Dendrite CaT ratio","Lower Dendrite CaT ratio",
               "Upper Dendrite diameter","Lower Dendrite diameter",
-              "Number of Red Synpase","Number of Blue Synpase")
+              "Number of Red Synpase","Number of Blue Synpase",
+              "Number of Upper Bifurcation","Number of Lower Bifurcation")
 
 colNames <- c("F",
               expression(paste("Neuron length [",mu,"m]",sep="")),
@@ -57,7 +59,8 @@ colNames <- c("F",
               expression(paste("Lower Dendrite CaT ratio",sep="")),
               expression(paste("Upper Stem diameter [",mu,"m]",sep="")),
               expression(paste("Lower Stem diameter [",mu,"m]",sep="")),
-              "Number of Red Synapse","Number of Blue Synapse")
+              "Number of Red Synapse","Number of Blue Synapse",
+              "Number of Upper Bifurcation","Number of Lower Bifurcation")
 
 
 load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))

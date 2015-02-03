@@ -84,12 +84,22 @@ make_legends <- function(legends,colors,ltys,pchs){
 ## cat("Output ->",Filename,"\n")
 
 
-# #------------- Gaus
+#------------- Gaus
 ## source("graph_setting.R")
 ## cat("the Gaus legend \n")
 ## test_legends <- c("t-test","t-test (reduced)")
 ## OutputDir <- "~/workspace/Syuron/Images_Result/"
-## Filename <- paste(OutputDir,"Gaus_legend.eps",sep="")
+## Filename <- paste(OutputDir,"Gaus_test_legend.eps",sep="")
 ## make_legends(test_legends,c("black","black"),rep("blank",2),c("*","+"))
+## dev.copy2eps(file=Filename)
+## cat("Output ->",Filename,"\n")
+
+## # #------------- Gaus line legend
+## source("graph_setting.R")
+## cat("the Gaus line legend \n")
+## test_legends <- c("Ka","Ka (reduced)","CaT","CaT (reduced)","Ka, CaT","Ka, CaT (reduced)")
+## OutputDir <- "~/workspace/Syuron/Images_Result/"
+## Filename <- paste(OutputDir,"Gaus_legend.eps",sep="")
+## make_legends(test_legends,c("darkorange4","darkorange","blueviolet","brown1","green","aquamarine"),rep("solid",4),rep("",4))
 ## dev.copy2eps(file=Filename)
 ## cat("Output ->",Filename,"\n")

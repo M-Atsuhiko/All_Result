@@ -9,7 +9,8 @@ plot_one_graph <- function(Datas,
                            showMax,
                            pass_test_result,
                            reduced_test_result,
-                           Gaus_liner_test_result){
+                           Gaus_liner_test_result,
+                           star_black){
   
   sigma_margin <- seq((length(Datas) - 1)*(-0.1),(length(Datas) - 1)*0.1,length=length(Datas))
   
@@ -66,10 +67,12 @@ plot_one_graph <- function(Datas,
       test <- pass_test_result[[test_i]]
       apply(test,2,function(col){
         if(col[2] == 0){
+          if(star_black) star_color <- "black"
+          else star_color <- Colors[test_i*2 - 1]
           text(col[1],Max_data,
                label="*",
                  cex=2,
-                 col=Colors[test_i*2 - 1])
+                 col=star_color)
         }
       })
     }

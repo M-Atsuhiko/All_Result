@@ -36,6 +36,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
       })
     }
 
+
     if(doTest){
       Gausian_pass_test <- rbind(DELTA_T + 0.5,
                                  sapply(DELTA_T,function(dt){
@@ -69,6 +70,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                                       subset(reduced_Liner_Data,DT == dt)[[data_name]],
                                       "two.sided",
                                       0.05)}))
+      
     }else{
       Gausian_pass_test <- c()
       Gaus_redced_test <- c()
@@ -88,7 +90,8 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                    FALSE,
                    list(Gausian_pass_test,Liner_pass_test),
                    list(Gaus_redced_test,Liner_reduced_test),
-                   Reduceds_test
+                   Reduceds_test,
+                   FALSE# star_black
                    )
 
     

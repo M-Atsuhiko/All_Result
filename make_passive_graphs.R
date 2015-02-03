@@ -29,7 +29,7 @@ OutputDir <- "./Graphs/"
 DELTA_T <- seq(5,30,by=5)
 
 typeName <- "passive"
-prefix <- "passive_one_"
+prefix <- "Tsuishi_Rerative_"
 
 load(paste(Tsuishi_prefix,typeName,"_Tsuishi_alfa_05_75_0_All_Data_FRAME.xdr",sep=""))
 alfa_data<- ALL_DATA_FRAME
@@ -53,7 +53,8 @@ dataNames <- c("F",
                "TREE_volume",
                "Upper_Diam","Lower_Diam",
                "N_Upper_Syn","N_Lower_Syn",
-               "N_Upper_bif","N_Lower_bif")
+               "N_Upper_bif","N_Lower_bif",
+               "Upper_Dend_length","Lower_Dend_length")
 
 
 mainNames <-c("F",
@@ -61,7 +62,8 @@ mainNames <-c("F",
               "Neuron volume",
               "Upper Dendrite diameter","Lower Dendrite diameter",
               "Number of Red Synapse","Number of Blue Synapse",
-              "Number of Upper Bifurcation","Number of Lower Bifurcation")
+              "Number of Upper Bifurcation","Number of Lower Bifurcation",
+              "Upper Dendrite length","Lower Dendrite length")
 
 colNames <- c("F",
               expression(paste("Neuron length [",mu,"m]",sep="")),
@@ -69,9 +71,13 @@ colNames <- c("F",
               expression(paste("Upper Stem diameter [",mu,"m]",sep="")),
               expression(paste("Lower Stem diameter [",mu,"m]",sep="")),
               "Number of Red Synpase","Number of Blue Synpase",
-              "Number of Upper Bifurcation","Number of Lower Bifurcation")
+              "Number of Upper Bifurcation","Number of Lower Bifurcation",
+              expression(paste("Upper Dendrite length[",mu,"m]",sep="")),
+              expression(paste("Lower Dendrite length[",mu,"m]",sep="")))
 
 rowNames <- rep(dt_row,length(colNames))
+
+star_black <- TRUE
 
 mapply(function(data_name,mainName,rowname,colname){
   cat(mainName,"\n")
@@ -120,7 +126,8 @@ mapply(function(data_name,mainName,rowname,colname){
                  FALSE,
                  list(test_result),
                  c(),
-                 c()
+                 c(),
+                 star_black
                  )
   dev.copy2eps(file=Filename)
   cat("Output ->",Filename,"\n")
