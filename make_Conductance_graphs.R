@@ -9,6 +9,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
   dataList <- list(Gausian_Data,reduced_Gausian_Data,
                    Liner_Data,reduced_Liner_Data)
 
+
                                         #                 Tsuishi)
 
   N_data <- length(dataList)
@@ -20,6 +21,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                "Gausian-reduced",
                "Liner",
                "Liner-reduced")
+
 
   rowNames <- rep(dt_row,length(colNames))
 
@@ -44,6 +46,20 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                                         "two.sided",
                                         0.05)}))
 
+      ## Gaus_reduced_test <- rbind(DELTA_T - 0.5,
+      ##                             sapply(DELTA_T,function(dt){
+      ##                               t_test(subset(Gausian_Data,DT == dt)[[data_name]],
+      ##                                      subset(passive_Data,DT == dt)[[data_name]],
+      ##                                      "two.sided",
+      ##                                      0.05)}))
+      
+      ## Liner_reduced_test <- rbind(DELTA_T + 0.5,
+      ##                             sapply(DELTA_T,function(dt){
+      ##                               t_test(subset(Liner_Data,DT == dt)[[data_name]],
+      ##                                      subset(passive_Data,DT == dt)[[data_name]],
+      ##                                      "two.sided",
+      ##                                      0.05)}))
+
       Gaus_reduced_test <- rbind(DELTA_T - 0.5,
                                   sapply(DELTA_T,function(dt){
                                     t_test(subset(Gausian_Data,DT == dt)[[data_name]],
@@ -51,7 +67,7 @@ make_Conductance_graphs <- function(Gausian_Data,reduced_Gausian_Data,
                                            "two.sided",
                                            0.05)}))
       
-      Liner_reduced_test <- rbind(DELTA_T - 0.5,
+      Liner_reduced_test <- rbind(DELTA_T + 0.5,
                                   sapply(DELTA_T,function(dt){
                                     t_test(subset(Liner_Data,DT == dt)[[data_name]],
                                            subset(reduced_Liner_Data,DT == dt)[[data_name]],

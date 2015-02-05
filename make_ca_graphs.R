@@ -25,7 +25,7 @@ OutputDir <- "./Graphs/"
 DELTA_T <- seq(5,30,by=5)
 
 typeName <- "ca"
-prefix <- "ca_test_"
+prefix <- "ca_st50_test_"
 
 dataNames <- c("F",
                "TREE_length",
@@ -54,19 +54,19 @@ colNames <- c("F",
               "Number of Red Synpase","Number of Blue Synpase",
               "Number of Upper Bifurcation","Number of Lower Bifurcation")
 
-load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_st50_75_0_All_Data_FRAME.xdr",sep=""))
 Gausian_Data <- ALL_DATA_FRAME
-load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
+load(paste(Gausian_prefix,typeName,"_Rerative_Gaus_st50_75_5_All_Data_FRAME.xdr",sep=""))
 reduced_Gausian_Data <- ALL_DATA_FRAME
-load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_0_All_Data_FRAME.xdr",sep=""))
+load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_st50_75_0_All_Data_FRAME.xdr",sep=""))
 Liner_Data <- ALL_DATA_FRAME
-load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_75_5_All_Data_FRAME.xdr",sep=""))
+load(paste(Tsuishi_prefix,typeName,"_Rerative_liner_st50_75_5_All_Data_FRAME.xdr",sep=""))
 reduced_Liner_Data <- ALL_DATA_FRAME
 
 load(paste(Gausian_prefix,"passive_Rerative_75_0_All_Data_FRAME.xdr",sep=""))
 passive_Data <- ALL_DATA_FRAME
 #load(paste(Tsuishi_prefix,typeName,"_Tsuishi_alfa05__All_Data_FRAME.xdr",sep=""))
-                                        #Tsuishi <- ALL_DATA_FRAME
+#                                        Tsuishi <- ALL_DATA_FRAME
 doTest <- TRUE
 
 make_Conductance_graphs(Gausian_Data,reduced_Gausian_Data,

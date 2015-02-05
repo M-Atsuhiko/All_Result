@@ -1,5 +1,9 @@
-test <- cbind(1:10,1:10)
+a <- 1:10
+b <- 11:20
+c <- 21:30
 
-print(test)
+test <- data.frame(a,b,c)
 
-apply(test,)
+print(test[test$a == 2,])
+
+

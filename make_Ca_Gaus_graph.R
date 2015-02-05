@@ -162,9 +162,9 @@ DELTA_T <- seq(5,30,by=5)
 
 prefix <- "ca_Gaus_"
 
-load(paste(Gausian_prefix,"ca_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
+load(paste(Gausian_prefix,"ca_Rerative_Gaus_st50_75_0_All_Data_FRAME.xdr",sep=""))
 ca_Gausian_Data <- ALL_DATA_FRAME
-load(paste(Gausian_prefix,"ca_Rerative_Gaus_75_5_All_Data_FRAME.xdr",sep=""))
+load(paste(Gausian_prefix,"ca_Rerative_Gaus_st50_75_5_All_Data_FRAME.xdr",sep=""))
 ca_reduced_Gausian_Data <- ALL_DATA_FRAME
 load(paste(Gausian_prefix,"k_ca_Rerative_Gaus_75_0_All_Data_FRAME.xdr",sep=""))
 k_ca_Gausian_Data <- ALL_DATA_FRAME
