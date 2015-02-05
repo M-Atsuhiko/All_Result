@@ -7,9 +7,9 @@ plot_one_graph <- function(Datas,
                            LineType,
                            DELTA_T,
                            showMax,
-                           pass_test_result,
-                           reduced_test_result,
                            Gaus_liner_test_result,
+                           reduced_test_result,
+                           reduced_Gaus_liner_test_result,
                            star_black){
   
   sigma_margin <- seq((length(Datas) - 1)*(-0.1),(length(Datas) - 1)*0.1,length=length(Datas))
@@ -62,27 +62,23 @@ plot_one_graph <- function(Datas,
     }
   },Datas,Colors,LineType,sigma_margin)
 
-  if(length(pass_test_result) > 0){
-    for(test_i in 1:length(pass_test_result)){
-      test <- pass_test_result[[test_i]]
-      apply(test,2,function(col){
-        if(col[2] == 0){
-          if(star_black) star_color <- "black"
-          else star_color <- Colors[test_i*2 - 1]
-          text(col[1],Max_data,
-               label="*",
-                 cex=2,
-                 col=star_color)
-        }
-      })
-    }
+  if(length(Gaus_liner_test_result)){
+    apply(Gaus_liner_test_result,2,function(col){
+      if(col[2] == 0){
+        text(col[1],par()$usr[3] + (par()$usr[4] - par()$usr[3])*0.97,
+             label="*",
+             cex=2,
+             col="black")
+      }
+    })
   }
+  
   if(length(reduced_test_result) > 0){
     for(test_i in 1:length(reduced_test_result)){
       test <- reduced_test_result[[test_i]]
       apply(test,2,function(col){
         if(col[2] == 0){
-          text(col[1],(par()$usr[4] + par()$usr[3])/1.04,
+          text(col[1],par()$usr[3] + (par()$usr[4] - par()$usr[3])*0.92,
                label="#",
                  cex=1,
                  col=Colors[test_i*2])
@@ -91,10 +87,10 @@ plot_one_graph <- function(Datas,
     }
   }
   
-  if(length(Gaus_liner_test_result) > 0){
-    apply(Gaus_liner_test_result,2,function(col){
+  if(length(reduced_Gaus_liner_test_result) > 0){
+    apply(reduced_Gaus_liner_test_result,2,function(col){
       if(col[2] == 0){
-        text(col[1],(par()$usr[4] + par()$usr[3])/1.08,
+        text(col[1],par()$usr[3] + (par()$usr[4] - par()$usr[3])*0.87,
              label="+",
              cex=1.3,
              col="green")

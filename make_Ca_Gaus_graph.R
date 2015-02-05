@@ -179,7 +179,7 @@ data_list <- list(ca_Gausian_Data,ca_reduced_Gausian_Data,
 legends <- c("CaT","CaT-reduced",
              "Ka CaT","Ka CaT-reduced")
 Colors <- c("blueviolet","brown1",
-            "green","aquamarine")
+            "forestgreen","greenyellow")
 margins <- c(-0.1,-0.5,0.5,0.1)
 
 Upper_result <- lapply(data_list,function(data){
